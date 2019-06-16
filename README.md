@@ -49,7 +49,7 @@ uint8_t SECURE_ON[6] = {0xFE, 0xDC, 0xBA, 0x98, 0x76, 0x54}; // FE:DC:BA:98:76:5
 
 ## **Usage: generate WOL**  
 
-#### Set variables
+#### Generate
 ```
 size_t magicPacketSize = 6 + (6 * 16);  // FF*6 + MAC*16
 uint8_t* magicPacket = new uint8_t[magicPacketSize]; // Magic packet will be stored in this variable
@@ -59,13 +59,13 @@ uint8_t MAC[6] = {0x01, 0x23, 0x45, 0x67, 0x89, 0xAB}; // 01:23:45:67:89:AB
 WOL.generateMagicPacket(magicPacket, magicPacketSize, pMacAddress, sizeof(MAC));
 ```
 
-#### Set variables
+#### Generate with secure on
 ```
-size_t magicPacketSize = 6 + (6 * 16);  // FF*6 + MAC*16
+size_t magicPacketSize = 6 + (6 * 16) + 6;  // FF*6 + MAC*16 + SecureOn
 uint8_t* magicPacket = new uint8_t[magicPacketSize]; // Magic packet will be stored in this variable
 
-uint8_t MAC[6] = {0x01, 0x23, 0x45, 0x67, 0x89, 0xAB}; // 01:23:45:67:89:AB
-uint8_t SECURE_ON[6] = {0xFE, 0xDC, 0xBA, 0x98, 0x76, 0x54}; // FE:DC:BA:98:76:54
+uint8_t MAC[6] = {0x01, 0x23, 0x45, 0x67, 0x89, 0xAB}; // MAC Address = 01:23:45:67:89:AB
+uint8_t SECURE_ON[6] = {0xFE, 0xDC, 0xBA, 0x98, 0x76, 0x54}; // SecureOn = FE:DC:BA:98:76:54
 
 WOL.generateMagicPacket(magicPacket, magicPacketSize, MAC, sizeof(MAC), SECURE_ON, sizeof(SECURE_ON));
 ```
