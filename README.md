@@ -20,7 +20,7 @@ WOL.setBroadcastAddress(WiFi.broadcastIP());
 WOL.setRepeat(3, 100); // Repeat three times with 100ms delay between
 ```
   
-## **Usage**  
+## **Usage: send WOL**  
 
 #### Set MAC address in variable
 ```
@@ -45,7 +45,10 @@ uint8_t SECURE_ON[6] = {0xFE, 0xDC, 0xBA, 0x98, 0x76, 0x54}; // FE:DC:BA:98:76:5
 
 ##### Send WOL UDP packet with password (Use port 7)
 `WOL.sendSecureMagicPacket(MAC, sizeof(MAC), SECURE_ON, sizeof(SECURE_ON), 7);`
----------------------------------------------------
+
+
+## **Usage: generate WOL**  
+
 #### Set variables
 ```
 size_t magicPacketSize = 6 + (6 * 16);  // FF*6 + MAC*16
