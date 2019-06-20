@@ -22,7 +22,7 @@ bool WakeOnLan::sendSecureMagicPacket(String _macString, String _secureOn, uint1
 }
 
 bool WakeOnLan::sendMagicPacket(const char* _macAddress, uint16_t _portNum) {
-	int tempMACAddress[6];
+	unsigned int tempMACAddress[6];
 	uint8_t macAddress[6];
 
 	const char* macFormat = (const char*)getFormat(_macAddress);
@@ -39,10 +39,10 @@ bool WakeOnLan::sendMagicPacket(const char* _macAddress, uint16_t _portNum) {
 }
 
 bool WakeOnLan::sendSecureMagicPacket(const char* _macAddress, const char* _secureOn, uint16_t _portNum) {
-	int tempMACAddress[6];
+	unsigned int tempMACAddress[6];
 	uint8_t macAddress[6];
 
-	int tempSecureOn[6];
+	unsigned int tempSecureOn[6];
 	uint8_t secureOn[6];
 
 	const char* macFormat = (const char*)getFormat(_macAddress);
