@@ -10,7 +10,7 @@ class WakeOnLan {
 	IPAddress broadcastAddress = IPAddress(255, 255, 255, 255);
 
 	uint8_t repeatPacket = 1;
-	unsigned long delayPacket = 100;
+	unsigned long delayPacket = 0;
 
    public:
 	WakeOnLan(WiFiUDP _udpSock);
