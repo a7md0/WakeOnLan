@@ -18,10 +18,13 @@ WakeOnLan WOL(UDP);
 
 #### Add this line in void setup() (Optinal)
 
-```
-WOL.setBroadcastAddress(WiFi.broadcastIP());
-WOL.setRepeat(3, 100); // Repeat three times with 100ms delay between
-```
+`WOL.setRepeat(3, 100); // Repeat the packet three times with 100ms delay between`
+
+#### Calculate and set the broadcast address (after connecting to WiFi successfully)
+`WOL.calculateBroadcastAddress(WiFi.localIP(), WiFi.subnetMask());`
+
+#### Set the broadcast address manually
+`WOL.setBroadcastAddress("192.168.1.255");`
   
 ## **Usage: send WOL**  
 
