@@ -13,6 +13,13 @@ void WakeOnLan::setRepeat(uint8_t _repeatPacket, unsigned long _delayPacket) {
 	delayPacket = _delayPacket;
 }
 
+IPAddress WakeOnLan::calculateBroadcastAddress(IPAddress _ipAddress, IPAddress _subnetMask) {
+	for (int i = 0; i < 4; i++)
+		broadcastAddress[i] = ~_subnetMask[i] | _ipAddress[i];
+
+	return broadcastAddress;
+}
+
 bool WakeOnLan::sendMagicPacket(String _macString, uint16_t _portNum) {
 	return sendMagicPacket(_macString.c_str(), _portNum);
 }
