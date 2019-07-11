@@ -17,6 +17,8 @@ class WakeOnLan {
 
 	void setBroadcastAddress(IPAddress _broadcastAddress);
 	void setRepeat(uint8_t _repeatPacket, unsigned long _delayPacket);
+	
+	IPAddress calculateBroadcastAddress(IPAddress _ipAddress, IPAddress _subnetMask);
 
 	bool sendMagicPacket(String _macString, uint16_t _portNum = 9);
 	bool sendSecureMagicPacket(String _macString, String _secureOn, uint16_t _portNum = 9);
