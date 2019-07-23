@@ -20,6 +20,30 @@ IPAddress WakeOnLan::calculateBroadcastAddress(IPAddress _ipAddress, IPAddress _
 	return broadcastAddress;
 }
 
+bool WakeOnLan::stringToArray(uint8_t* _macAddress, const char* _macString) {
+	char macFormat[23 + 1];
+	unsigned int tempMACAddress[6];
+
+	if (strlen(_macString) == 12)  // FFFFFFFFFFFF
+		sprintf(macFormat, "%%2x%%2x%%2x%%2x%%2x%%2x");
+	else if (strlen(_macString) == 14)  // FFFF-FFFF-FFFF
+		sprintf(macFormat, "%%2x%%2x%c%%2x%%2x%c%%2x%%2x", _macString[4], _macString[9]);
+	else if (strlen(_macString) == 17)  // FF-FF-FF-FF-FF-FF
+		sprintf(macFormat, "%%2x%c%%2x%c%%2x%c%%2x%c%%2x%c%%2x", _macString[2], _macString[5], _macString[8], _macString[11], _macString[14]);
+	else
+		return false;
+
+	int j = sscanf(_macString, (const char*)macFormat, &tempMACAddress[0], &tempMACAddress[1], &tempMACAddress[2], &tempMACAddress[3], &tempMACAddress[4], &tempMACAddress[5]);
+	if (j == 6) {
+		for (uint8_t i = 0; i < sizeof(tempMACAddress) / sizeof(*tempMACAddress); i++)
+			_macAddress[i] = (uint8_t)tempMACAddress[i];
+
+		return true;
+	}
+
+	return false;
+}
+
 bool WakeOnLan::sendMagicPacket(String _macString, uint16_t _portNum) {
 	return sendMagicPacket(_macString.c_str(), _portNum);
 }
@@ -29,44 +53,26 @@ bool WakeOnLan::sendSecureMagicPacket(String _macString, String _secureOn, uint1
 }
 
 bool WakeOnLan::sendMagicPacket(const char* _macAddress, uint16_t _portNum) {
-	unsigned int tempMACAddress[6];
 	uint8_t macAddress[6];
 
-	char* macFormat = getFormat(_macAddress);
-	int j = sscanf(_macAddress, (const char*)macFormat, &tempMACAddress[0], &tempMACAddress[1], &tempMACAddress[2], &tempMACAddress[3], &tempMACAddress[4], &tempMACAddress[5]);
-
-	if (j != sizeof(macAddress)) return false;
-
-	for (uint8_t i = 0; i < sizeof(macAddress); i++)
-		macAddress[i] = (uint8_t)tempMACAddress[i];
-	
-	delete[] macFormat;
+	bool res = stringToArray(macAddress, _macAddress);
+	if (!res)
+		return false;
 
 	return sendMagicPacket(macAddress, sizeof(macAddress), _portNum);
 }
 
 bool WakeOnLan::sendSecureMagicPacket(const char* _macAddress, const char* _secureOn, uint16_t _portNum) {
-	unsigned int tempMACAddress[6];
 	uint8_t macAddress[6];
-
-	unsigned int tempSecureOn[6];
 	uint8_t secureOn[6];
 
-	char* macFormat = getFormat(_macAddress);
-	int j = sscanf(_macAddress, (const char*)macFormat, &tempMACAddress[0], &tempMACAddress[1], &tempMACAddress[2], &tempMACAddress[3], &tempMACAddress[4], &tempMACAddress[5]);
+	bool res = stringToArray(macAddress, _macAddress);
+	if (!res)
+		return false;
 
-	char* secureFormat = getFormat(_secureOn);
-	int k = sscanf(_secureOn, (const char*)secureFormat, &tempSecureOn[0], &tempSecureOn[1], &tempSecureOn[2], &tempSecureOn[3], &tempSecureOn[4], &tempSecureOn[5]);
-
-	if (j != sizeof(macAddress) || k != sizeof(secureOn)) return false;
-
-	for (uint8_t i = 0; i < sizeof(macAddress); i++) {
-		macAddress[i] = (uint8_t)tempMACAddress[i];
-		secureOn[i] = (uint8_t)tempSecureOn[i];
-	}
-	
-	delete[] macFormat;
-	delete[] secureFormat;
+	bool res2 = stringToArray(secureOn, _secureOn);
+	if (!res2)
+		return false;
 
 	return sendSecureMagicPacket(macAddress, sizeof(macAddress), secureOn, sizeof(secureOn), _portNum);
 }
@@ -102,7 +108,7 @@ bool WakeOnLan::sendSecureMagicPacket(uint8_t* pMacAddress, size_t sizeOfMacAddr
 
 	int sucessNum = 0;
 
-	generateMagicPacket(magicPacket, magicPacketSize, pMacAddress, sizeOfMacAddress, pSecureOn, sizeOfSecureOn);
+	generateSecureMagicPacket(magicPacket, magicPacketSize, pMacAddress, sizeOfMacAddress, pSecureOn, sizeOfSecureOn);
 
 	for (uint8_t i = 0; i < repeatPacket; i++) {
 		udpSock.beginPacket(broadcastAddress, portNum);
@@ -133,7 +139,7 @@ void WakeOnLan::generateMagicPacket(uint8_t*& pMagicPacket, size_t& sizeOfMagicP
 	}
 }
 
-void WakeOnLan::generateMagicPacket(uint8_t*& pMagicPacket, size_t& sizeOfMagicPacket, uint8_t* pMacAddress, size_t sizeOfMacAddress, uint8_t* pSecureOn, size_t sizeOfSecureOn) {
+void WakeOnLan::generateSecureMagicPacket(uint8_t*& pMagicPacket, size_t& sizeOfMagicPacket, uint8_t* pMacAddress, size_t sizeOfMacAddress, uint8_t* pSecureOn, size_t sizeOfSecureOn) {
 	uint8_t macAddress[6];
 	uint8_t secureOn[6];
 
@@ -148,17 +154,4 @@ void WakeOnLan::generateMagicPacket(uint8_t*& pMagicPacket, size_t& sizeOfMagicP
 	}
 
 	memcpy(&pMagicPacket[17 * sizeOfSecureOn], &secureOn, sizeOfSecureOn);
-}
-
-char* WakeOnLan::getFormat(const char* _MAC) {
-	char* cMacFormat = new char[23 + 1];
-
-	if (strlen(_MAC) == 12)  // FFFFFFFFFFFF
-		sprintf(cMacFormat, "%%2x%%2x%%2x%%2x%%2x%%2x");
-	else if (strlen(_MAC) == 14)  // FFFF-FFFF-FFFF
-		sprintf(cMacFormat, "%%2x%%2x%c%%2x%%2x%c%%2x%%2x", _MAC[2], _MAC[2]);
-	else if (strlen(_MAC) == 17)  // FF:FF:FF:FF:FF:FF
-		sprintf(cMacFormat, "%%2x%c%%2x%c%%2x%c%%2x%c%%2x%c%%2x", _MAC[2], _MAC[2], _MAC[2], _MAC[2], _MAC[2]);
-
-	return cMacFormat;
 }
