@@ -1,7 +1,6 @@
 #ifndef WakeOnLan_h
 #define WakeOnLan_h
 
-#include <SPI.h>
 #include <WiFiUDP.h>
 
 class WakeOnLan {
