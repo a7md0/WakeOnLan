@@ -12,7 +12,7 @@ WiFiUDP UDP;
 
 #### Include and initialize WakeOnLan class
 ```
-#include "WakeOnLan.h"
+#include <WakeOnLan.h>
 WakeOnLan WOL(UDP);
 ```
 
@@ -20,10 +20,10 @@ WakeOnLan WOL(UDP);
 
 `WOL.setRepeat(3, 100); // Repeat the packet three times with 100ms delay between`
 
-#### Calculate and set the broadcast address (after connecting to WiFi successfully)
+#### Calculate and set the broadcast address, after connecting to WiFi successfully (Optinal)
 `WOL.calculateBroadcastAddress(WiFi.localIP(), WiFi.subnetMask());`
 
-#### Set the broadcast address manually
+#### Set the broadcast address manually (Optinal)
 `WOL.setBroadcastAddress("192.168.1.255");`
   
 ## **Usage: send WOL**  
