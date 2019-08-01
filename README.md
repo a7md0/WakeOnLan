@@ -7,7 +7,8 @@ To install the library to Arduino IDE by downloading this repository as zip file
 
 To install the library to PlatformIO IDE go to and add the repository link to lib_deps variable OR add the library name
 `lib_deps = https://github.com/a7md0/WakeOnLan.git`
-
+Or
+`lib_deps = WakeOnLan`
 
 #### Include and initialize WiFiUDP
 ```
@@ -18,7 +19,7 @@ WiFiUDP UDP;
 #### Include and initialize WakeOnLan class
 ```
 #include <WakeOnLan.h>
-WakeOnLan WOL(UDP);
+WakeOnLan WOL(UDP); // Pass WiFiUDP class
 ```
 
 #### Add this line in void setup() (Optinal)
