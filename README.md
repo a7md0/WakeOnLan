@@ -59,7 +59,7 @@ const char *secureOn = "FE:DC:BA:98:76:54";
 ##### Send WOL UDP packet with password (Use port 7)
 `WOL.sendSecureMagicPacket(MACAddress, secureOn, 7);`
   
-### **Send WOL from byte array MAC Address **
+### **Send WOL from byte array MAC Address**
 
 #### Set MAC address in variable
 ```
