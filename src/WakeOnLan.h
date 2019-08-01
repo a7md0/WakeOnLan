@@ -1,7 +1,7 @@
 #ifndef WakeOnLan_h
 #define WakeOnLan_h
 
-#include <WiFiUDP.h>
+#include <WiFiUdp.h>
 
 class WakeOnLan {
    private:
