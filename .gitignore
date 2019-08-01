@@ -10,9 +10,6 @@
 .vscode/launch.json
 .vscode/settings.json
 
-# Credentials file (sensitive information)
-src/Credentials.h
-
 # Prerequisites
 *.d
 
