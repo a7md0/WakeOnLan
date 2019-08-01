@@ -6,7 +6,7 @@ Arduino Wake On Lan ( ESP8266 &amp; ESP32 )
 
 #### Include and initialize WiFiUDP
 ```
-#include <WiFiUDP.h>
+#include <WiFiUdp.h>
 WiFiUDP UDP;
 ```
 
