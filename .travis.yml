@@ -64,4 +64,4 @@ install:
     - platformio update
 
 script:
-    - platformio ci --lib="." --board=lolin32 --board=d1
+    - platformio ci --lib="." --board=nodemcuv2 --board=esp32dev
