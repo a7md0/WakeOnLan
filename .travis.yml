@@ -56,8 +56,6 @@ cache:
 
 env:
     - PLATFORMIO_CI_SRC=src
-    - PLATFORMIO_CI_SRC=examples/ESP32.ino
-    - PLATFORMIO_CI_SRC=examples/ESP8266.ino
 
 install:
     - pip install -U platformio
