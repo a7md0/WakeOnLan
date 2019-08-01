@@ -1,4 +1,4 @@
-# WakeOnLan
+# WakeOnLan [![Build Status](https://travis-ci.com/a7md0/WakeOnLan.svg?branch=master)](https://travis-ci.com/a7md0/WakeOnLan)
 Arduino Wake On Lan ( ESP8266 &amp; ESP32 )
 
 ## **Install**
