@@ -14,7 +14,7 @@ void WakeOnLan::setRepeat(uint8_t _repeatPacket, unsigned long _delayPacket) {
 }
 
 IPAddress WakeOnLan::calculateBroadcastAddress(IPAddress _ipAddress, IPAddress _subnetMask) {
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 4; i++) {
 		broadcastAddress[i] = ~_subnetMask[i] | _ipAddress[i];
 
 	return broadcastAddress;
