@@ -2,6 +2,7 @@
 #define WakeOnLan_h
 
 #include <WiFiUdp.h>
+#include <Arduino.h>
 
 class WakeOnLan {
    private:
