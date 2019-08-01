@@ -55,11 +55,12 @@ cache:
         - "~/.platformio"
 
 env:
-    - PLATFORMIO_CI_SRC=src
+    - PLATFORMIO_CI_SRC=examples/ESP32.ino PLATFORMIO_CI_EXTRA_ARGS="--board=esp32dev"
+    - PLATFORMIO_CI_SRC=examples/ESP8266.ino PLATFORMIO_CI_EXTRA_ARGS="--board=nodemcuv2"
 
 install:
     - pip install -U platformio
     - platformio update
 
 script:
-    - platformio ci --lib="." --board=nodemcuv2 --board=esp32dev
+    - platformio ci --lib="." $PLATFORMIO_CI_EXTRA_ARGS
