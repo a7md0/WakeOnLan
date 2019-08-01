@@ -1,7 +1,12 @@
 # WakeOnLan [![Build Status](https://travis-ci.com/a7md0/WakeOnLan.svg?branch=master)](https://travis-ci.com/a7md0/WakeOnLan)
-Arduino Wake On Lan ( ESP8266 &amp; ESP32 )
+Wake-On-LAN Library for ( ESP8266 &amp; ESP32 ), Provide an easy way to send/generate magic packet for any MAC Address. Moreover, support SecureOn feature in some motherboard vendors. Finally, support using custom port number than the default one which is port 9.<br /><br />
+This library could be used in other environments. Although, (IPAddress, WiFiUDP, delay()) classes should be available.
 
 ## **Install**
+To install the library to Arduino IDE by downloading this repository as zip file and navigate to Sketch -> Include library -> Add .ZIP library. Alternatively, navigate to Tools -> Library Manager and search for this library name<br /><br />
+
+To install the library to PlatformIO IDE go to and add the repository link to lib_deps variable OR add the library name
+`lib_deps = https://github.com/a7md0/WakeOnLan.git`
 
 
 #### Include and initialize WiFiUDP
@@ -26,7 +31,9 @@ WakeOnLan WOL(UDP);
 #### Set the broadcast address manually (Optinal)
 `WOL.setBroadcastAddress("192.168.1.255");`
   
-## **Usage: send WOL**  
+## **Usage**
+
+### **Send WOL from char array MAC Address**
 
 #### Set MAC address in variable
 ```
@@ -52,7 +59,7 @@ const char *secureOn = "FE:DC:BA:98:76:54";
 ##### Send WOL UDP packet with password (Use port 7)
 `WOL.sendSecureMagicPacket(MACAddress, secureOn, 7);`
   
-## **Usage: send WOL**  
+### **Send WOL from byte array MAC Address **
 
 #### Set MAC address in variable
 ```
@@ -79,7 +86,7 @@ uint8_t SECURE_ON[6] = {0xFE, 0xDC, 0xBA, 0x98, 0x76, 0x54}; // FE:DC:BA:98:76:5
 `WOL.sendSecureMagicPacket(MAC, sizeof(MAC), SECURE_ON, sizeof(SECURE_ON), 7);`
 
 
-## **Usage: generate WOL**  
+### **Generate WOL packet**
 
 #### Generate
 ```
