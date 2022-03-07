@@ -1,5 +1,5 @@
 # WakeOnLan [![Build Status](https://travis-ci.com/a7md0/WakeOnLan.svg?branch=master)](https://travis-ci.com/a7md0/WakeOnLan)
-This Library provides an easy way to generate/send magic packets from an ESP8266 or ESP32 to any MAC Address. Moreover, it supports the "SecureOn" feature from some motherboard manufacturers. Finally, it also supports using any port number (instead of the default port 9.)<br /><br />
+This Library provides an easy way to generate/send magic packets from an ESP8266 or ESP32 to any MAC Address. Additionally, it supports the "SecureOn" feature from some motherboard manufacturers. Finally, it also supports using any port number (instead of the default port 9.)<br /><br />
 This library can be used in any environment that the IPAddress, WiFiUDP & delay classes are available.
 
 ## **Install**
