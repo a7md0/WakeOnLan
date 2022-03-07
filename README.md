@@ -1,13 +1,13 @@
 # WakeOnLan [![Build Status](https://travis-ci.com/a7md0/WakeOnLan.svg?branch=master)](https://travis-ci.com/a7md0/WakeOnLan)
-Wake-On-LAN Library for ( ESP8266 &amp; ESP32 ), Provide an easy way to send/generate magic packet for any MAC Address. Moreover, support SecureOn feature in some motherboard vendors. Finally, support using custom port number than the default one which is port 9.<br /><br />
-This library could be used in other environments. Although, (IPAddress, WiFiUDP, delay()) classes should be available.
+This Library provides an easy way to generate/send magic packets from an ESP8266 or ESP32 to any MAC Address. Additionally, it supports the "SecureOn" feature from some motherboard manufacturers. Finally, it also supports using any port number (instead of the default port 9.)<br /><br />
+This library can be used in any environment that the IPAddress, WiFiUDP & delay classes are available.
 
 ## **Install**
-To install the library to Arduino IDE by downloading this repository as zip file and navigate to Sketch -> Include library -> Add .ZIP library. Alternatively, navigate to Tools -> Library Manager and search for this library name<br /><br />
+You can install this library in the Arduino IDE by downloading this repository as zip file, then in the IDE navigate to Sketch -> Include library -> Add .ZIP library. Alternatively, navigate to Tools -> Library Manager and search for this library's name<br /><br />
 
-To install the library to PlatformIO IDE go to and add the repository link to lib_deps variable OR add the library name
-`lib_deps = https://github.com/a7md0/WakeOnLan.git`
-Or
+To install the library in the PlatformIO IDE, copy the repository link and add to the 'lib_deps' variable:
+`lib_deps = https://github.com/a7md0/WakeOnLan.git`  
+ OR use the library name like so:  
 `lib_deps = WakeOnLan`
 
 #### Include and initialize WiFiUDP
@@ -22,14 +22,14 @@ WiFiUDP UDP;
 WakeOnLan WOL(UDP); // Pass WiFiUDP class
 ```
 
-#### Add this line in void setup() (Optinal)
+#### Add this line in void setup() (optional)
 
 `WOL.setRepeat(3, 100); // Repeat the packet three times with 100ms delay between`
 
-#### Calculate and set the broadcast address, after connecting to WiFi successfully (Optinal)
+#### After connecting to WiFi successfully, Calculate and set the broadcast address (optional)
 `WOL.calculateBroadcastAddress(WiFi.localIP(), WiFi.subnetMask());`
 
-#### Set the broadcast address manually (Optinal)
+#### Manually set the broadcast address (optional)
 `WOL.setBroadcastAddress("192.168.1.255");`
   
 ## **Usage**
@@ -41,20 +41,20 @@ WakeOnLan WOL(UDP); // Pass WiFiUDP class
 const char *MACAddress = "01:23:45:67:89:AB";
 ```
 
-##### Send WOL UDP packet (By default port 9)
+##### Send WOL UDP packet (Using the default port - 9)
 `WOL.sendMagicPacket(MACAddress);`
 
 ##### Send WOL UDP packet (Use port 7)
 `WOL.sendMagicPacket(MACAddress, 7);`
 
 
-#### Set MAC address and SecureOn in variable
+#### Set MAC address and SecureOn variables
 ```
 const char *MACAddress = "01:23:45:67:89:AB";
 const char *secureOn = "FE:DC:BA:98:76:54";
 ```
 
-##### Send WOL UDP packet with password (By default port 9)
+##### Send WOL UDP packet with password (Using the default port - 9)
 `WOL.sendSecureMagicPacket(MACAddress, secureOn);`
 
 ##### Send WOL UDP packet with password (Use port 7)
@@ -67,7 +67,7 @@ const char *secureOn = "FE:DC:BA:98:76:54";
 uint8_t MAC[6] = {0x01, 0x23, 0x45, 0x67, 0x89, 0xAB}; // 01:23:45:67:89:AB
 ```
 
-##### Send WOL UDP packet (By default port 9)
+##### Send WOL UDP packet (Using the default port - 9)
 `WOL.sendMagicPacket(MAC, sizeof(MAC));`
 
 ##### Send WOL UDP packet (Use port 7)
@@ -87,7 +87,7 @@ uint8_t SECURE_ON[6] = {0xFE, 0xDC, 0xBA, 0x98, 0x76, 0x54}; // FE:DC:BA:98:76:5
 `WOL.sendSecureMagicPacket(MAC, sizeof(MAC), SECURE_ON, sizeof(SECURE_ON), 7);`
 
 
-### **Generate WOL packet**
+### **Generate magic packet**
 
 #### Generate
 ```
@@ -99,7 +99,7 @@ uint8_t MAC[6] = {0x01, 0x23, 0x45, 0x67, 0x89, 0xAB}; // 01:23:45:67:89:AB
 WOL.generateMagicPacket(magicPacket, magicPacketSize, pMacAddress, sizeof(MAC));
 ```
 
-#### Generate with secure on
+#### Generate with "SecureOn"
 ```
 size_t magicPacketSize = 6 + (6 * 16) + 6;  // FF*6 + MAC*16 + SecureOn
 uint8_t* magicPacket = new uint8_t[magicPacketSize]; // Magic packet will be stored in this variable
