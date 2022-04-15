@@ -1,14 +1,14 @@
-# WakeOnLan [![Build Status](https://travis-ci.com/a7md0/WakeOnLan.svg?branch=master)](https://travis-ci.com/a7md0/WakeOnLan)
+# WakeOnLan [![Build Status](https://travis-ci.com/a7md0/WakeOnLan.svg?branch=master)](https://travis-ci.com/a7md0/WakeOnLan) [![PlatformIO Registry](https://badges.registry.platformio.org/packages/a7md0/library/WakeOnLan.svg)](https://registry.platformio.org/libraries/a7md0/WakeOnLan)
 This Library provides an easy way to generate/send magic packets from an ESP8266 or ESP32 to any MAC Address. Additionally, it supports the "SecureOn" feature from some motherboard manufacturers. Finally, it also supports using any port number (instead of the default port 9.)<br /><br />
 This library can be used in any environment that the IPAddress, WiFiUDP & delay classes are available.
 
 ## **Install**
-You can install this library in the Arduino IDE by downloading this repository as zip file, then in the IDE navigate to Sketch -> Include library -> Add .ZIP library. Alternatively, navigate to Tools -> Library Manager and search for this library's name<br /><br />
+You can install this library in the Arduino IDE by navigating to Tools -> Library Manager and search for this library's name. Alternatively, download this repository as zip file, then in the IDE navigate to Sketch -> Include library -> Add .ZIP library<br /><br />
 
-To install the library in the PlatformIO IDE, copy the repository link and add to the 'lib_deps' variable:
-`lib_deps = https://github.com/a7md0/WakeOnLan.git`  
- OR use the library name like so:  
+To install the library in the PlatformIO IDE, use the library name like so:
 `lib_deps = WakeOnLan`
+ OR copy the repository link and add to the 'lib_deps' variable:
+`lib_deps = https://github.com/a7md0/WakeOnLan.git`
 
 #### Include and initialize WiFiUDP
 ```
