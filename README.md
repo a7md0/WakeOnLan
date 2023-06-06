@@ -1,4 +1,4 @@
-# WakeOnLan [![Build Status](https://travis-ci.com/a7md0/WakeOnLan.svg?branch=master)](https://travis-ci.com/a7md0/WakeOnLan) [![PlatformIO Registry](https://badges.registry.platformio.org/packages/a7md0/library/WakeOnLan.svg)](https://registry.platformio.org/libraries/a7md0/WakeOnLan)
+# WakeOnLan [![Build Status](https://travis-ci.com/a7md0/WakeOnLan.svg?branch=master)](https://travis-ci.com/a7md0/WakeOnLan) [![PlatformIO Registry](https://badges.registry.platformio.org/packages/a7md0/library/WakeOnLan.svg)](https://registry.platformio.org/libraries/a7md0/WakeOnLan) [![arduino-library-badge](https://www.ardu-badge.com/badge/WakeOnLan.svg?)]([https://www.ardu-badge.com/MyLibrary](https://reference.arduino.cc/reference/en/libraries/wakeonlan))
 This Library provides an easy way to generate/send magic packets from an ESP8266 or ESP32 to any MAC Address. Additionally, it supports the "SecureOn" feature from some motherboard manufacturers. Finally, it also supports using any port number (instead of the default port 9.)<br /><br />
 This library can be used in any environment that the IPAddress, WiFiUDP & delay classes are available.
 
@@ -11,13 +11,13 @@ To install the library in the PlatformIO IDE, use the library name like so:
 `lib_deps = https://github.com/a7md0/WakeOnLan.git`
 
 #### Include and initialize WiFiUDP
-```
+```cpp
 #include <WiFiUdp.h>
 WiFiUDP UDP;
 ```
 
 #### Include and initialize WakeOnLan class
-```
+```cpp
 #include <WakeOnLan.h>
 WakeOnLan WOL(UDP); // Pass WiFiUDP class
 ```
@@ -37,7 +37,7 @@ WakeOnLan WOL(UDP); // Pass WiFiUDP class
 ### **Send WOL from char array MAC Address**
 
 #### Set MAC address in variable
-```
+```cpp
 const char *MACAddress = "01:23:45:67:89:AB";
 ```
 
@@ -49,7 +49,7 @@ const char *MACAddress = "01:23:45:67:89:AB";
 
 
 #### Set MAC address and SecureOn variables
-```
+```cpp
 const char *MACAddress = "01:23:45:67:89:AB";
 const char *secureOn = "FE:DC:BA:98:76:54";
 ```
@@ -63,7 +63,7 @@ const char *secureOn = "FE:DC:BA:98:76:54";
 ### **Send WOL from byte array MAC Address**
 
 #### Set MAC address in variable
-```
+```cpp
 uint8_t MAC[6] = {0x01, 0x23, 0x45, 0x67, 0x89, 0xAB}; // 01:23:45:67:89:AB
 ```
 
@@ -75,7 +75,7 @@ uint8_t MAC[6] = {0x01, 0x23, 0x45, 0x67, 0x89, 0xAB}; // 01:23:45:67:89:AB
 
 
 #### Set MAC address and SecureOn in variable
-```
+```cpp
 uint8_t MAC[6] = {0x01, 0x23, 0x45, 0x67, 0x89, 0xAB}; // 01:23:45:67:89:AB
 uint8_t SECURE_ON[6] = {0xFE, 0xDC, 0xBA, 0x98, 0x76, 0x54}; // FE:DC:BA:98:76:54
 ```
@@ -90,7 +90,7 @@ uint8_t SECURE_ON[6] = {0xFE, 0xDC, 0xBA, 0x98, 0x76, 0x54}; // FE:DC:BA:98:76:5
 ### **Generate magic packet**
 
 #### Generate
-```
+```cpp
 size_t magicPacketSize = 6 + (6 * 16);  // FF*6 + MAC*16
 uint8_t* magicPacket = new uint8_t[magicPacketSize]; // Magic packet will be stored in this variable
 
@@ -100,7 +100,7 @@ WOL.generateMagicPacket(magicPacket, magicPacketSize, pMacAddress, sizeof(MAC));
 ```
 
 #### Generate with "SecureOn"
-```
+```cpp
 size_t magicPacketSize = 6 + (6 * 16) + 6;  // FF*6 + MAC*16 + SecureOn
 uint8_t* magicPacket = new uint8_t[magicPacketSize]; // Magic packet will be stored in this variable
 
