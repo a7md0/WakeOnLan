@@ -1,6 +1,6 @@
 #include "WakeOnLan.h"
 
-WakeOnLan::WakeOnLan(WiFiUDP _udpSock) {
+WakeOnLan::WakeOnLan(UDP _udpSock) {
 	udpSock = _udpSock;
 }
 
