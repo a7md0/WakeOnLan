@@ -1,13 +1,11 @@
-#include <WiFi.h>
+#include <SPI.h>
+#include <Ethernet.h>
 #include <EthernetUdp.h>
 
 #include <WakeOnLan.h>
 
 EthernetUdp UDP;
 WakeOnLan WOL(UDP);
-
-const char* ssid     = "your-ssid";
-const char* password = "your-password";
 
 void wakeMyPC() {
     const char *MACAddress = "01:23:45:67:89:AB";
@@ -24,19 +22,19 @@ void wakeOfficePC() {
     // WOL.sendSecureMagicPacket(MACAddress, secureOn, 7); // Change the port number
 }
 
-void setup()
-{
+void setup() {
     WOL.setRepeat(3, 100); // Optional, repeat the packet three times with 100ms between. WARNING delay() is used between send packet function.
 
-    WiFi.mode(WIFI_STA);
-    WiFi.begin(ssid, password);
+    // the media access control (ethernet hardware) address for the shield:
+    byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };  
+    Ethernet.begin(mac);
 
-    while (WiFi.status() != WL_CONNECTED) {
+    while (Ethernet.linkStatus() != LinkON) {
         delay(500);
         Serial.print(".");
     }
 
-    WOL.calculateBroadcastAddress(WiFi.localIP(), WiFi.subnetMask()); // Optional  => To calculate the broadcast address, otherwise 255.255.255.255 is used (which is denied in some networks).
+    WOL.calculateBroadcastAddress(Ethernet.localIP(), Ethernet.subnetMask()); // Optional  => To calculate the broadcast address, otherwise 255.255.255.255 is used (which is denied in some networks).
     
     wakeMyPC();
     wakeOfficePC();
@@ -45,4 +43,5 @@ void setup()
 
 void loop()
 {
+    Ethernet.maintain();
 }

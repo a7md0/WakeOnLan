@@ -24,6 +24,6 @@ jobs:
         run: pip install --upgrade platformio
 
       - name: Build examples
-        run: pio ci --lib="." --board=${{ matrix.example[0] }}
+        run: pio ci --lib="." --lib="Ethernet" --board=${{ matrix.example[0] }}
         env:
           PLATFORMIO_CI_SRC: ${{ matrix.example[1] }}
