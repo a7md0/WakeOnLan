@@ -1,0 +1,29 @@
+name: PlatformIO CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        example: [[esp32dev, examples/WakeOnLan-ESP32/WakeOnLan-ESP32.ino], [nodemcuv2, examples/WakeOnLan-ESP8266/WakeOnLan-ESP8266.ino]]
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.platformio/.cache
+          key: ${{ runner.os }}-pio
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      - name: Install PlatformIO Core
+        run: pip install --upgrade platformio
+
+      - name: Build examples
+        run: pio ci --lib="." --board=${{ matrix.example[0] }}
+        env:
+          PLATFORMIO_CI_SRC: ${{ matrix.example[1] }}
