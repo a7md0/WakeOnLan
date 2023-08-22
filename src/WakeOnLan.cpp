@@ -1,7 +1,7 @@
 #include "WakeOnLan.h"
 
-WakeOnLan::WakeOnLan(WiFiUDP _udpSock) {
-	udpSock = _udpSock;
+WakeOnLan::WakeOnLan(UDP& _udpSock) {
+	udpSock = &_udpSock;
 }
 
 void WakeOnLan::setBroadcastAddress(IPAddress _broadcastAddress) {
@@ -86,9 +86,9 @@ bool WakeOnLan::sendMagicPacket(uint8_t* pMacAddress, size_t sizeOfMacAddress, u
 	generateMagicPacket(magicPacket, magicPacketSize, pMacAddress, sizeOfMacAddress);
 
 	for (uint8_t i = 0; i < repeatPacket; i++) {
-		udpSock.beginPacket(broadcastAddress, portNum);
-		udpSock.write(magicPacket, magicPacketSize);
-		sucessNum += udpSock.endPacket();
+		udpSock->beginPacket(broadcastAddress, portNum);
+		udpSock->write(magicPacket, magicPacketSize);
+		sucessNum += udpSock->endPacket();
 
 		if (delayPacket > 0)
 			delay(delayPacket);
@@ -111,9 +111,9 @@ bool WakeOnLan::sendSecureMagicPacket(uint8_t* pMacAddress, size_t sizeOfMacAddr
 	generateSecureMagicPacket(magicPacket, magicPacketSize, pMacAddress, sizeOfMacAddress, pSecureOn, sizeOfSecureOn);
 
 	for (uint8_t i = 0; i < repeatPacket; i++) {
-		udpSock.beginPacket(broadcastAddress, portNum);
-		udpSock.write(magicPacket, magicPacketSize);
-		sucessNum += udpSock.endPacket();
+		udpSock->beginPacket(broadcastAddress, portNum);
+		udpSock->write(magicPacket, magicPacketSize);
+		sucessNum += udpSock->endPacket();
 
 		if (delayPacket > 0)
 			delay(delayPacket);

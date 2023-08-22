@@ -16,6 +16,12 @@ To install the library in the PlatformIO IDE, use the library name like so:
 WiFiUDP UDP;
 ```
 
+#### (or) Include and initialize EthernetUdp
+```cpp
+#include <EthernetUdp.h>
+EthernetUdp UDP;
+```
+
 #### Include and initialize WakeOnLan class
 ```cpp
 #include <WakeOnLan.h>
@@ -24,13 +30,19 @@ WakeOnLan WOL(UDP); // Pass WiFiUDP class
 
 #### Add this line in void setup() (optional)
 
-`WOL.setRepeat(3, 100); // Repeat the packet three times with 100ms delay between`
+```cpp
+WOL.setRepeat(3, 100); // Repeat the packet three times with 100ms delay between
+```
 
 #### After connecting to WiFi successfully, Calculate and set the broadcast address (optional)
-`WOL.calculateBroadcastAddress(WiFi.localIP(), WiFi.subnetMask());`
+```cpp
+WOL.calculateBroadcastAddress(WiFi.localIP(), WiFi.subnetMask());
+```
 
-#### Manually set the broadcast address (optional)
-`WOL.setBroadcastAddress("192.168.1.255");`
+#### Manually set the broadcast address (optional; default to 255.255.255.255)
+```cpp
+WOL.setBroadcastAddress("192.168.1.255");
+```
   
 ## **Usage**
 
@@ -42,10 +54,14 @@ const char *MACAddress = "01:23:45:67:89:AB";
 ```
 
 ##### Send WOL UDP packet (Using the default port - 9)
-`WOL.sendMagicPacket(MACAddress);`
+```cpp
+WOL.sendMagicPacket(MACAddress);
+```
 
 ##### Send WOL UDP packet (Use port 7)
-`WOL.sendMagicPacket(MACAddress, 7);`
+```cpp
+WOL.sendMagicPacket(MACAddress, 7);
+```
 
 
 #### Set MAC address and SecureOn variables
@@ -55,10 +71,14 @@ const char *secureOn = "FE:DC:BA:98:76:54";
 ```
 
 ##### Send WOL UDP packet with password (Using the default port - 9)
-`WOL.sendSecureMagicPacket(MACAddress, secureOn);`
+```cpp
+WOL.sendSecureMagicPacket(MACAddress, secureOn);
+```
 
 ##### Send WOL UDP packet with password (Use port 7)
-`WOL.sendSecureMagicPacket(MACAddress, secureOn, 7);`
+```cpp
+WOL.sendSecureMagicPacket(MACAddress, secureOn, 7);
+```
   
 ### **Send WOL from byte array MAC Address**
 
@@ -68,10 +88,14 @@ uint8_t MAC[6] = {0x01, 0x23, 0x45, 0x67, 0x89, 0xAB}; // 01:23:45:67:89:AB
 ```
 
 ##### Send WOL UDP packet (Using the default port - 9)
-`WOL.sendMagicPacket(MAC, sizeof(MAC));`
+```cpp
+WOL.sendMagicPacket(MAC, sizeof(MAC));
+```
 
 ##### Send WOL UDP packet (Use port 7)
-`WOL.sendMagicPacket(MAC, sizeof(MAC), 7);`
+```cpp
+WOL.sendMagicPacket(MAC, sizeof(MAC), 7);
+```
 
 
 #### Set MAC address and SecureOn in variable
@@ -81,10 +105,14 @@ uint8_t SECURE_ON[6] = {0xFE, 0xDC, 0xBA, 0x98, 0x76, 0x54}; // FE:DC:BA:98:76:5
 ```
 
 ##### Send WOL UDP packet with password (By default port 9)
-`WOL.sendSecureMagicPacket(MAC, sizeof(MAC), SECURE_ON, sizeof(SECURE_ON));`
+```cpp
+WOL.sendSecureMagicPacket(MAC, sizeof(MAC), SECURE_ON, sizeof(SECURE_ON));
+```
 
 ##### Send WOL UDP packet with password (Use port 7)
-`WOL.sendSecureMagicPacket(MAC, sizeof(MAC), SECURE_ON, sizeof(SECURE_ON), 7);`
+```cpp
+WOL.sendSecureMagicPacket(MAC, sizeof(MAC), SECURE_ON, sizeof(SECURE_ON), 7);
+```
 
 
 ### **Generate magic packet**
