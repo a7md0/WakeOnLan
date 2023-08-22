@@ -35,6 +35,7 @@ cache:
 env:
     - PLATFORMIO_CI_SRC=examples/WakeOnLan-ESP32/WakeOnLan-ESP32.ino PLATFORMIO_CI_EXTRA_ARGS="--board=esp32dev"
     - PLATFORMIO_CI_SRC=examples/WakeOnLan-ESP8266/WakeOnLan-ESP8266.ino PLATFORMIO_CI_EXTRA_ARGS="--board=nodemcuv2"
+    - PLATFORMIO_CI_SRC=examples/WakeOnLan-ESP32-Ethernet/WakeOnLan-ESP32-Ethernet.ino PLATFORMIO_CI_EXTRA_ARGS="--board=esp32dev"
 
 install:
     - pip install -U platformio
