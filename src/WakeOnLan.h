@@ -6,14 +6,14 @@
 
 class WakeOnLan {
    private:
-	UDP udpSock;
+	UDP* udpSock;
 	IPAddress broadcastAddress = IPAddress(255, 255, 255, 255);
 
 	uint8_t repeatPacket = 1;
 	unsigned long delayPacket = 0;
 
    public:
-	WakeOnLan(UDP _udpSock);
+	WakeOnLan(UDP& _udpSock);
 
 	void setBroadcastAddress(IPAddress _broadcastAddress);
 	void setRepeat(uint8_t _repeatPacket, unsigned long _delayPacket);
