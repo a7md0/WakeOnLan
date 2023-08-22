@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        example: [examples/WakeOnLan-ESP32/WakeOnLan-ESP32.ino, examples/WakeOnLan-ESP8266/WakeOnLan-ESP8266.ino, examples/WakeOnLan-ESP32-Ethernet/WakeOnLan-ESP32-Ethernet.ino]
+        example: [[esp32dev, examples/WakeOnLan-ESP32/WakeOnLan-ESP32.ino], [nodemcuv2, examples/WakeOnLan-ESP8266/WakeOnLan-ESP8266.ino], [esp32dev, examples/WakeOnLan-ESP32-Ethernet/WakeOnLan-ESP32-Ethernet.ino]]
 
     steps:
       - uses: actions/checkout@v3
@@ -24,6 +24,6 @@ jobs:
         run: pip install --upgrade platformio
 
       - name: Build examples
-        run: pio ci --board=esp32dev --board=nodemcuv2 --board=esp32dev
+        run: pio ci --lib="." --board=${{ matrix.example[0] }}
         env:
-          PLATFORMIO_CI_SRC: ${{ matrix.example }}
+          PLATFORMIO_CI_SRC: ${{ matrix.example[1] }}
